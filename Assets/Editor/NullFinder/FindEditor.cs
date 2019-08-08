@@ -9,8 +9,23 @@ public class FindEditor : Editor
     {
         find = target as NullFinder;
 
-        EditorGUILayout.LabelField("ClassName");
-        GUILayout.TextField("",find.toFindclassName);
+        GUILayout.BeginHorizontal();
+
+        GUILayout.Label("ToFindClassName");
+
+        find.toFindclassName = EditorGUILayout.TextField(find.toFindclassName);
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+
+        GUILayout.Label("ToFindMethodName");
+
+        find.toFindMethodName= EditorGUILayout.TextField(find.toFindMethodName);
+
+        GUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginVertical();
 
         if (GUILayout.Button("Find"))
         {
@@ -28,6 +43,6 @@ public class FindEditor : Editor
             }
         }
 
-        EditorGUI.LabelField(new Rect(Vector2.zero, new Vector2(100f, 50f)), "List");
+        EditorGUILayout.EndVertical();
     }
 }

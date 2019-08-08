@@ -17,8 +17,6 @@ public class NullFinder : MonoBehaviour
 
     public void Find()
     {
-        toFindclassName = "All";
-        toFindMethodName = "SetActive";
         topObjs = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
         int topObjsLength = topObjs.Length;
         //Search("Test", "Button3");
@@ -93,6 +91,9 @@ public class NullFinder : MonoBehaviour
                 try
                 {
                     string typeName = Components[componentIndex].GetType().ToString();
+
+                    //Debug.Log("Component Name : " + typeName);
+
                     if (typeName.StartsWith("Unity"))//Unity로 시작하는건 기본 제공하는 컴포넌트들 ex)UnityEngine.UI.Image
                     {
                         if (typeName.Contains("Image"))//Image 컴포넌트가 붙은 경우
@@ -189,9 +190,11 @@ public class NullFinder : MonoBehaviour
                             }
                         }
                     }
-                    else//직접 만든 스크립트에 null을 찾고 싶은경우
+                    else if (typeName.CompareTo(toFindclassName) == 0)//toFindclassName으로된 스크립트가 붙은 오브젝트 찾기
                     {
-
+                        //직접 만든 스크립트에 null을 찾고 싶은경우
+                        AddObjectToFindList(allObjsList[index]);
+                        break;
                     }
                 }
                 catch (Exception e)//여기는 스크립트 자체가 missing인 경우 ex) Test.cs 를 컴포넌트로 가지고 있던 오브젝트가 Test.cs가 삭제될경우 NullRef 에러
